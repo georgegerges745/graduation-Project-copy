@@ -75,14 +75,14 @@ export default function Login() {
         <div style={{ position:"absolute", bottom:-80, right:-60, width:300, height:300, borderRadius:"50%", background:"rgba(255,255,255,0.07)" }}/>
         <div style={{ zIndex:1, textAlign:"center" }}>
           <div style={{ fontSize:40, marginBottom:12 }}>🦷</div>
-          <div style={{ fontSize:28, fontWeight:800, letterSpacing:1, marginBottom:12 }}>DentalCare</div>
+          <div style={{ fontSize:28, fontWeight:800, letterSpacing:1, marginBottom:12 }}>Dent Al</div>
           <div style={{ fontSize:18, fontStyle:"italic", fontWeight:300, opacity:0.92, lineHeight:1.6, marginBottom:36 }}>
             "Your smile, our responsibility."
           </div>
           <img
-            src="https://images.unsplash.com/photo-1588776814546-ec7e07bde13e?w=400&q=80"
+            src="/dentist.jpg"
             alt="Smiling dentist"
-            style={{ width:"80%", maxWidth:280, borderRadius:20, boxShadow:"0 8px 32px rgba(0,0,0,0.18)" }}
+            style={{ width:"100%", height:"350px", objectFit:"cover", borderRadius:20, boxShadow:"0 8px 32px rgba(0,0,0,0.18)", marginTop:24 }}
           />
         </div>
       </div>

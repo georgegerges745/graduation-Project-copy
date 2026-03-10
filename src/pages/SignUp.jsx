@@ -6,7 +6,7 @@ const API_URL = "http://localhost:5000/api/auth";
 const steps = ["Account Type", "Your Details"];
 
 const accountTypes = [
-  { id: "patient", label: "Patient", icon: "🧑‍⚕️", desc: "Book appointments & manage your health" },
+  { id: "patient", label: "Patient", icon: "🙋", desc: "Book appointments & manage your health" },
   { id: "doctor", label: "Doctor", icon: "👨‍⚕️", desc: "Manage your practice & patients" },
   { id: "clinic", label: "Clinic", icon: "🏥", desc: "Manage your clinic & doctors" },
 ];
@@ -40,8 +40,33 @@ export default function SignUp() {
     if (!form.fullName?.trim()) errs.fullName = "Required";
     if (!form.email?.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = "Valid email required";
     if (!form.phone?.trim()) errs.phone = "Required";
-    if (!form.password || form.password.length < 6) errs.password = "Min 6 characters";
+    if (!form.password || !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*?])[A-Za-z\d!@#$%^&*?]{8,}$/.test(form.password)) errs.password = "Min 8 chars with uppercase, lowercase, number & symbol (!@#$%^&*?)";
     if (form.password !== form.confirmPassword) errs.confirmPassword = "Passwords don't match";
+    
+    if (type === "patient") {
+      if (!form.dob) errs.dob = "Required";
+      if (!form.gender) errs.gender = "Required";
+      if (!form.chronic?.trim()) errs.chronic = "Required";
+      if (!form.allergies?.trim()) errs.allergies = "Required";
+      if (!form.dentalIssues?.trim()) errs.dentalIssues = "Required";
+      if (!form.emergency?.trim()) errs.emergency = "Required";
+    }
+    
+    if (type === "doctor") {
+      if (!form.gender) errs.gender = "Required";
+      if (!form.specialty) errs.specialty = "Required";
+      if (!form.experience) errs.experience = "Required";
+      if (!form.license?.trim()) errs.license = "Required";
+      if (!form.price) errs.price = "Required";
+    }
+    
+    if (type === "clinic") {
+      if (!form.clinicName?.trim()) errs.clinicName = "Required";
+      if (!form.address?.trim()) errs.address = "Required";
+      if (!form.city?.trim()) errs.city = "Required";
+      if (!form.workingHours?.trim()) errs.workingHours = "Required";
+    }
+    
     return errs;
   };
 
@@ -161,7 +186,7 @@ export default function SignUp() {
 
         {/* Header */}
         <div style={{ background: "linear-gradient(90deg, #1d6fa4, #2196f3)", padding: "28px 36px", color: "white" }}>
-          <div style={{ fontSize: 22, fontWeight: 800, marginBottom: 4 }}>🦷 DentalCare — Create Account</div>
+          <div style={{ fontSize: 22, fontWeight: 800, marginBottom: 4 }}>🦷 Dent Al — Create Account</div>
           <div style={{ opacity: 0.85, fontSize: 14 }}>Step {step} of 2: {steps[step - 1]}</div>
           <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
             {steps.map((_, i) => (
@@ -192,7 +217,7 @@ export default function SignUp() {
               <p style={{ color: "#7a8fa6", fontSize: 14, marginBottom: 24 }}>Select your account type to get started</p>
               <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
                 {accountTypes.map(t => (
-                  <div key={t.id} onClick={() => setType(t.id)}
+                  <div key={t.id} onClick={() => { setType(t.id); setForm({}); }}
                     style={{
                       padding: "18px 20px", borderRadius: 14, border: `2px solid ${type === t.id ? "#1d6fa4" : "#dde8f5"}`,
                       background: type === t.id ? "#f0f7ff" : "white", cursor: "pointer",
@@ -225,7 +250,13 @@ export default function SignUp() {
               {/* Common Fields */}
               {field("Full Name", "fullName")}
               {field("Email", "email", "email")}
-              {field("Phone Number", "phone", "tel")}
+              <div style={{ marginBottom: 16 }}>
+  <label style={labelStyle}>Phone Number</label>
+  <input type="tel" placeholder="Phone Number" value={form.phone || ""}
+    onChange={e => { const val = e.target.value.replace(/[^0-9]/g, "").slice(0, 11); set("phone", val); }}
+    style={inputStyle(errors.phone)} />
+  {errors.phone && <p style={{ color:"#e53935", fontSize:12, marginTop:3 }}>{errors.phone}</p>}
+</div>
               {passField("Password", "password", showPass, setShowPass)}
               {passField("Confirm Password", "confirmPassword", showConfirm, setShowConfirm)}
 
@@ -234,7 +265,8 @@ export default function SignUp() {
                 {field("Date of Birth", "dob", "date")}
                 <div style={{ marginBottom: 16 }}>
                   <label style={labelStyle}>Gender</label>
-                  <select value={form.gender || ""} onChange={e => set("gender", e.target.value)} style={inputStyle(false)}>
+                  <select value={form.gender || ""} onChange={e => set("gender", e.target.value)} style={inputStyle(errors.gender)}>
+                    {errors.gender && <p style={{ color:"#e53935", fontSize:12, marginTop:3 }}>Required</p>}
                     <option value="">Select gender</option>
                     <option>Male</option><option>Female</option>
                   </select>
