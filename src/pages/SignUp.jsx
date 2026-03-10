@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
+const API_URL = "http://localhost:5000/api/auth";
 
 const steps = ["Account Type", "Your Details"];
 
@@ -42,14 +45,80 @@ export default function SignUp() {
     return errs;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const errs = validateStep2();
     if (Object.keys(errs).length > 0) {
       setErrors(errs);
       showToast("Please fix the errors before continuing.", "error");
-    } else {
+      return;
+    }
+
+    // Build request body based on user type
+    let requestBody = {
+      role: type,
+      name: form.fullName,
+      email: form.email,
+      password: form.password,
+      phone: form.phone,
+    };
+
+    // Add role-specific fields
+    if (type === "patient") {
+      requestBody = {
+        ...requestBody,
+        dateOfBirth: form.dob,
+        gender: form.gender,
+        chronicDiseases: form.chronic,
+        allergies: form.allergies,
+        dentalIssues: form.dentalIssues,
+        emergencyContact: form.emergency,
+      };
+    } else if (type === "doctor") {
+      requestBody = {
+        ...requestBody,
+        gender: form.gender,
+        specialty: form.specialty,
+        experience: form.experience,
+        licenseNumber: form.license,
+        workingDays: selectedDays,
+        consultationPrice: form.price,
+      };
+    } else if (type === "clinic") {
+      requestBody = {
+        ...requestBody,
+        clinicName: form.clinicName,
+        address: form.address,
+        city: form.city,
+        mapsLink: form.mapsLink,
+        workingHours: form.workingHours,
+        maxDoctors: form.maxDoctors,
+      };
+    }
+
+    try {
+      const response = await fetch(`${API_URL}/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestBody)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Registration failed");
+      }
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
       setErrors({});
       showToast("Account created successfully! 🎉", "success");
+      
+      // Redirect after 2 seconds
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 2000);
+    } catch (error) {
+      showToast(error.message, "error");
     }
   };
 
@@ -143,7 +212,7 @@ export default function SignUp() {
                 Continue →
               </button>
               <p style={{ textAlign: "center", marginTop: 18, fontSize: 14, color: "#7a8fa6" }}>
-                Already have an account? <a href="#" style={{ color: "#1d6fa4", fontWeight: 700, textDecoration: "none" }}>Login</a>
+                Already have an account? <Link to="/login" style={{ color: "#1d6fa4", fontWeight: 700, textDecoration: "none" }}>Login</Link>
               </p>
             </div>
           )}

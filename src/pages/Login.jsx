@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
+const API_URL = "http://localhost:5000/api/auth";
 
 export default function Login() {
   const [form, setForm] = useState({ identifier: "", password: "", remember: false });
@@ -21,14 +24,41 @@ export default function Login() {
     setTimeout(() => setToast(null), 3500);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const errs = validate();
     if (Object.keys(errs).length > 0) {
       setErrors(errs);
       showToast("Please fix the errors before continuing.", "error");
-    } else {
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_URL}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: form.identifier,
+          password: form.password
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Login failed");
+      }
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
       setErrors({});
       showToast("Login successful! Welcome back 😊", "success");
+      
+      // Redirect after 1.5 seconds
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 1500);
+    } catch (error) {
+      showToast(error.message, "error");
     }
   };
 
@@ -119,7 +149,7 @@ export default function Login() {
 
           <p style={{ textAlign:"center", marginTop:24, fontSize:14, color:"#7a8fa6" }}>
             Don't have an account?{" "}
-            <a href="#" style={{ color:"#1d6fa4", fontWeight:700, textDecoration:"none" }}>Sign Up</a>
+            <Link to="/signup" style={{ color:"#1d6fa4", fontWeight:700, textDecoration:"none" }}>Sign Up</Link>
           </p>
         </div>
       </div>
