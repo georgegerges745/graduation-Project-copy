@@ -1,311 +1,78 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Doctor Dashboard</title>
-
-<link rel="stylesheet" href="style.css">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-</head>
-
-<body>
-
-<div class="container">
-
-<!-- HEADER -->
-
-<div class="header">
-
-<div class="doctor">
-
-<img src="https://i.imgur.com/6VBx3io.png">
-
-<div>
-
-<h2>Dr. Ahmed Mahmoud</h2>
-
-<p>Dental Implants & Cosmetic Dentistry Consultant</p>
-
-<span class="rating">⭐ 4.9 (247 reviews)</span>
-
-</div>
-
-</div>
-
-<button class="edit">
-
-<i class="fa fa-pen"></i> Edit Profile
-
-</button>
-
-</div>
-
-
-<!-- CONTACT -->
-
-<div class="contact">
-
-<div>
-<i class="fa fa-envelope"></i>
-dr.ahmed@dentalclinic.com
-</div>
-
-<div>
-<i class="fa fa-phone"></i>
-+966 50 123 4567
-</div>
-
-<div>
-<i class="fa fa-location-dot"></i>
-Main Clinic - Riyadh
-</div>
-
-</div>
-
-
-<!-- STATS -->
-
-<div class="stats">
-
-<div class="box">
-
-<i class="fa fa-calendar"></i>
-
-<h3>4 Appointments</h3>
-
-<p>Scheduled for today</p>
-
-</div>
-
-
-<div class="box">
-
-<i class="fa fa-check-circle"></i>
-
-<h3>1 Appointment</h3>
-
-<p>Completed today</p>
-
-</div>
-
-
-<div class="box">
-
-<i class="fa fa-users"></i>
-
-<h3>127 Patients</h3>
-
-<p>Total patients</p>
-
-</div>
-
-
-<div class="box">
-
-<i class="fa fa-clock"></i>
-
-<h3>3 Appointments</h3>
-
-<p>Next few days</p>
-
-</div>
-
-</div>
-
-
-<!-- APPOINTMENTS -->
-
-<div class="appointments">
-
-<h2>Today's Appointments</h2>
-
-
-<div class="row">
-
-<div class="user">
-
-<div class="circle">M</div>
-
-<div>
-
-<h4>Mohammed Ali</h4>
-
-<p>General Checkup</p>
-
-</div>
-
-</div>
-
-<div class="time">09:00 AM • 30 minutes</div>
-
-<span class="status completed">Completed</span>
-
-</div>
-
-
-<div class="row">
-
-<div class="user">
-
-<div class="circle">F</div>
-
-<div>
-
-<h4>Fatima Ahmed</h4>
-
-<p>Teeth Whitening</p>
-
-</div>
-
-</div>
-
-<div class="time">10:00 AM • 45 minutes</div>
-
-<span class="status progress">In Progress</span>
-
-</div>
-
-
-<div class="row">
-
-<div class="user">
-
-<div class="circle">K</div>
-
-<div>
-
-<h4>Khaled Saeed</h4>
-
-<p>Dental Implant</p>
-
-</div>
-
-</div>
-
-<div class="time">11:30 AM • 60 minutes</div>
-
-<span class="status pending">Pending</span>
-
-</div>
-
-
-<div class="row">
-
-<div class="user">
-
-<div class="circle">S</div>
-
-<div>
-
-<h4>Sara Mohammed</h4>
-
-<p>Dental Crown</p>
-
-</div>
-
-</div>
-
-<div class="time">02:00 PM • 45 minutes</div>
-
-<span class="status pending">Pending</span>
-
-</div>
-
-</div>
-
-</div>
-
-</body>
-</html>
-<script src="script.js"></script>
-=======
-<<<<<<< HEAD
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>my-app</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
-</html>
-=======
-<!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Dent AI - Doctor Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <title>لوحة تحكم الطبيب</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<nav>
-    <h2>Dent AI</h2>
-</nav>
+<div class="container">
+    <header class="profile-card">
+        <div class="profile-main">
+            <img src="https://via.placeholder.com/80" alt="Doctor" class="avatar">
+            <div class="doctor-info">
+                <h1>د. أحمد محمود</h1>
+                <p>استشاري زراعة الأسنان وتجميل الأسنان</p>
+                <span>⭐ 4.9 (247 مراجعة) | خبرة 15 عاماً</span>
+            </div>
+        </div>
+        <div class="contact-bar">
+            <span>📧 dr.ahmed@dentalclinic.com</span>
+            <span>📞 +966 50 123 4567</span>
+            <span>📍 العيادة الرئيسية - الرياض</span>
+        </div>
+    </header>
 
-<h1>Doctor Dashboard</h1>
+    <section class="stats-grid">
+        <div class="stat-box blue">
+            <h3>4 مواعيد</h3>
+            <p>مجدولة اليوم</p>
+        </div>
+        <div class="stat-box green">
+            <h3>1 موعد</h3>
+            <p>اكتمل اليوم</p>
+        </div>
+        <div class="stat-box purple">
+            <h3>127 مريض</h3>
+            <p>إجمالي المرضى</p>
+        </div>
+        <div class="stat-box orange">
+            <h3>3 مواعيد</h3>
+            <p>الأيام القادمة</p>
+        </div>
+    </section>
 
-<!-- ================= Dashboard ================= -->
+    <nav class="tabs">
+        <button class="tab-btn active">مواعيد اليوم</button>
+        <button class="tab-btn">المواعيد القادمة</button>
+        <button class="tab-btn">قائمة المرضى</button>
+    </nav>
 
-<section class="dashboard">
-
-    <div class="stats">
-        <div class="stat-card">
-            <h3>Total Appointments</h3>
-            <p id="totalAppointments">0</p>
+    <main class="appointments-list">
+        <div class="appointment-item">
+            <div class="patient-avatar">م</div>
+            <div class="details">
+                <h4>محمد علي</h4>
+                <p>فحص عام</p>
+                <small>⏰ 09:00 AM | ⏳ 30 دقيقة</small>
+            </div>
+            <span class="status completed">مكتمل</span>
         </div>
 
-        <div class="stat-card">
-            <h3>Completed</h3>
-            <p id="completedCount">0</p>
+        <div class="appointment-item">
+            <div class="patient-avatar" style="background: #e67e22;">ف</div>
+            <div class="details">
+                <h4>فاطمة أحمد</h4>
+                <p>تبييض أسنان</p>
+                <small>⏰ 10:00 AM | ⏳ 45 دقيقة</small>
+            </div>
+            <span class="status in-progress">قيد التنفيذ</span>
         </div>
-
-        <div class="stat-card">
-            <h3>Pending</h3>
-            <p id="pendingCount">0</p>
-        </div>
-
-        <div class="stat-card">
-            <h3>Total Revenue</h3>
-            <p id="totalRevenue">$0</p>
-        </div>
-    </div>
-
-    <div class="chart-container">
-        <canvas id="revenueChart"></canvas>
-    </div>
-
-</section>
-
-<!-- ================= Appointments ================= -->
-
-<h2 class="section-title">Today's Appointments</h2>
-
-<div id="appointments" class="appointments-container">
+    </main>
 </div>
 
-<audio id="notifySound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
-
 <script src="script.js"></script>
-
 </body>
 </html>
->>>>>>> 21ac30ab57f56a8fa95ec2e23b770835049a65e7
->>>>>>> 091f3ba02c8e4a0a1ce690a2d88a28b251e00333
