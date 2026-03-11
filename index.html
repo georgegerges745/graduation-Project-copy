@@ -3,76 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة تحكم الطبيب</title>
-    <link rel="stylesheet" href="style.css">
+    <title>لوحة تحكم العيادة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --main-blue: #0056b3;
+            --light-bg: #f4f7f6;
+            --success: #27ae60;
+            --warning: #f39c12;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: var(--light-bg);
+            margin: 0; padding: 20px; direction: rtl;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        /* كارت الدكتور الجديد */
+        .doctor-header {
+            background: var(--main-blue);
+            color: white; padding: 20px;
+            border-radius: 15px; display: flex;
+            align-items: center; gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .doctor-header img {
+            width: 90px; height: 90px;
+            border-radius: 50%; border: 3px solid white;
+            object-fit: cover;
+        }
+
+        /* الجدول */
+        .section-title { margin: 20px 0; color: var(--main-blue); display: flex; align-items: center; gap: 10px; }
+        
+        .table-container {
+            background: white; border-radius: 12px;
+            overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 15px; text-align: right; border-bottom: 1px solid #eee; }
+        th { background: #f8f9fa; color: var(--main-blue); }
+
+        /* كروت المرضى التفاعلية */
+        .patients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .patient-card {
+            background: white; border-radius: 12px;
+            padding: 20px; border-right: 6px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+
+        .patient-card.completed { border-right-color: var(--success); }
+        .patient-card.pending { border-right-color: var(--warning); }
+
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .card-header h4 { margin: 0; color: #333; }
+        
+        .status-btn {
+            border: none; padding: 5px 10px; border-radius: 5px;
+            cursor: pointer; font-size: 0.8rem; font-weight: bold;
+        }
+
+        .btn-done { background: #e8f5e9; color: var(--success); }
+        .btn-wait { background: #fff3e0; color: var(--warning); }
+
+        @media (max-width: 600px) {
+            .doctor-header { flex-direction: column; text-align: center; }
+            table { font-size: 0.9rem; }
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
-    <header class="profile-card">
-        <div class="profile-main">
-            <img src="https://via.placeholder.com/80" alt="Doctor" class="avatar">
-            <div class="doctor-info">
-                <h1>د. أحمد محمود</h1>
-                <p>استشاري زراعة الأسنان وتجميل الأسنان</p>
-                <span>⭐ 4.9 (247 مراجعة) | خبرة 15 عاماً</span>
-            </div>
-        </div>
-        <div class="contact-bar">
-            <span>📧 dr.ahmed@dentalclinic.com</span>
-            <span>📞 +966 50 123 4567</span>
-            <span>📍 العيادة الرئيسية - الرياض</span>
+    <header class="doctor-header">
+        <img src="dentist.jpg" alt="دكتور أحمد">
+        <div>
+            <h1>د. أحمد محمود</h1>
+            <p><i class="fas fa-map-marker-alt"></i> القاهرة، مصر | +20 100 123 4567</p>
         </div>
     </header>
 
-    <section class="stats-grid">
-        <div class="stat-box blue">
-            <h3>4 مواعيد</h3>
-            <p>مجدولة اليوم</p>
-        </div>
-        <div class="stat-box green">
-            <h3>1 موعد</h3>
-            <p>اكتمل اليوم</p>
-        </div>
-        <div class="stat-box purple">
-            <h3>127 مريض</h3>
-            <p>إجمالي المرضى</p>
-        </div>
-        <div class="stat-box orange">
-            <h3>3 مواعيد</h3>
-            <p>الأيام القادمة</p>
-        </div>
-    </section>
+    <h3 class="section-title"><i class="fas fa-list"></i> جدول مواعيد اليوم</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>المريض</th>
+                    <th>الساعة</th>
+                    <th>الحالة</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <tr>
+                    <td>محمد علي</td>
+                    <td>09:00 AM</td>
+                    <td style="color: var(--success);">تمت الزيارة</td>
+                </tr>
+                <tr>
+                    <td>سارة أحمد</td>
+                    <td>10:30 AM</td>
+                    <td style="color: var(--warning);">في الانتظار</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <nav class="tabs">
-        <button class="tab-btn active">مواعيد اليوم</button>
-        <button class="tab-btn">المواعيد القادمة</button>
-        <button class="tab-btn">قائمة المرضى</button>
-    </nav>
-
-    <main class="appointments-list">
-        <div class="appointment-item">
-            <div class="patient-avatar">م</div>
-            <div class="details">
-                <h4>محمد علي</h4>
-                <p>فحص عام</p>
-                <small>⏰ 09:00 AM | ⏳ 30 دقيقة</small>
+    <h3 class="section-title"><i class="fas fa-users"></i> متابعة حالة المرضى</h3>
+    <div class="patients-grid">
+        
+        <div class="patient-card completed" id="p1">
+            <div class="card-header">
+                <div>
+                    <h4>محمد علي</h4>
+                    <small style="color: #777;">فحص دوري</small>
+                </div>
+                <i class="fas fa-check-circle" style="color: var(--success);"></i>
             </div>
-            <span class="status completed">مكتمل</span>
+            <p><i class="far fa-clock"></i> بدأ في 09:00 AM</p>
+            <button class="status-btn btn-done">تمت الزيارة</button>
         </div>
 
-        <div class="appointment-item">
-            <div class="patient-avatar" style="background: #e67e22;">ف</div>
-            <div class="details">
-                <h4>فاطمة أحمد</h4>
-                <p>تبييض أسنان</p>
-                <small>⏰ 10:00 AM | ⏳ 45 دقيقة</small>
+        <div class="patient-card pending" id="p2">
+            <div class="card-header">
+                <div>
+                    <h4>سارة أحمد</h4>
+                    <small style="color: #777;">تبييض أسنان</small>
+                </div>
+                <i class="fas fa-hourglass-half" style="color: var(--warning);"></i>
             </div>
-            <span class="status in-progress">قيد التنفيذ</span>
+            <p><i class="far fa-clock"></i> الموعد: 10:30 AM</p>
+            <button class="status-btn btn-wait" onclick="markAsDone('p2')">تأكيد الإتمام</button>
         </div>
-    </main>
+
+    </div>
 </div>
 
-<script src="script.js"></script>
+<script>
+    function markAsDone(cardId) {
+        const card = document.getElementById(cardId);
+        card.classList.remove('pending');
+        card.classList.add('completed');
+        card.querySelector('.status-btn').innerText = "تمت الزيارة";
+        card.querySelector('.status-btn').classList.remove('btn-wait');
+        card.querySelector('.status-btn').classList.add('btn-done');
+        card.querySelector('.fa-hourglass-half').className = "fas fa-check-circle";
+        card.querySelector('.fa-check-circle').style.color = "#27ae60";
+        alert("تم تحديث حالة المريض بنجاح!");
+    }
+</script>
+
 </body>
 </html>
