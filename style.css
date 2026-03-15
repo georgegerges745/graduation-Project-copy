@@ -1,69 +1,161 @@
-:root {
-    --main-blue: #0056b3;
-    --bg-color: #f0f2f5;
-    --pending: #f39c12;
-    --completed: #27ae60;
-    --progress: #3498db;
+/* FONT + COLORS */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+:root{
+--blue:#1e88e5;
+--light-blue:#e3f2fd;
+--white:#ffffff;
+--bg:#f5f9ff;
+--shadow:0 4px 10px rgba(0,0,0,0.08);
 }
 
-body {
-    font-family: 'Segoe UI', sans-serif;
-    background: var(--bg-color);
-    margin: 0; padding: 20px; direction: rtl;
+/* GLOBAL */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
 }
 
-.container { max-width: 800px; margin: 0 auto; }
-
-.profile-card {
-    background: var(--main-blue);
-    color: white; padding: 25px; border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+body{
+background:var(--bg);
+color:#333;
 }
 
-.contact-bar i { margin-left: 5px; color: #add8e6; }
+/* NAVBAR */
 
-.tabs { margin: 20px 0; display: flex; gap: 10px; }
-.tab-btn {
-    background: white; border: none; padding: 10px 20px;
-    border-radius: 20px; cursor: pointer; font-weight: 600;
-    transition: 0.3s; color: #555;
-}
-.tab-btn.active { background: var(--main-blue); color: white; }
-
-.appointment-item {
-    background: white; padding: 15px; border-radius: 12px;
-    display: flex; align-items: center; margin-bottom: 15px;
-    transition: 0.3s; border-right: 5px solid transparent;
+.navbar{
+background:var(--white);
+padding:15px 30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:var(--shadow);
 }
 
-/* أيقونة المريض الدائرية */
-.patient-icon {
-    width: 45px; height: 45px; background: #eef2f7;
-    border-radius: 50%; display: flex; align-items: center;
-    justify-content: center; color: var(--main-blue); margin-left: 15px;
+.navbar a{
+text-decoration:none;
+color:var(--blue);
+margin-left:20px;
+font-weight:500;
+transition:0.3s;
 }
 
-.details { flex-grow: 1; }
-.details h4 { margin: 0; font-size: 1.1rem; }
-.details p { margin: 5px 0; color: #666; font-size: 0.9rem; }
-
-/* تصميم قائمة الحالة */
-.status-control select {
-    padding: 8px 12px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    background: #f9f9f9;
-    font-family: inherit;
-    cursor: pointer;
-    outline: none;
+.navbar a:hover{
+color:white;
+background:var(--blue);
+padding:6px 12px;
+border-radius:6px;
 }
 
-/* تغيير لون الحافة حسب الحالة */
-.status-completed { border-right-color: var(--completed) !important; }
-.status-pending { border-right-color: var(--pending) !important; }
-.status-progress { border-right-color: var(--progress) !important; }
+/* CONTAINER */
 
-@media (max-width: 500px) {
-    .appointment-item { flex-direction: column; text-align: center; gap: 10px; }
-    .patient-icon { margin: 0; }
+.container{
+max-width:1000px;
+margin:auto;
+padding:20px;
+}
+
+/* PROFILE CARD */
+
+.profile-card{
+background:var(--blue);
+color:white;
+padding:25px;
+border-radius:14px;
+box-shadow:var(--shadow);
+}
+
+/* APPOINTMENT CARD */
+
+.appointment-item{
+background:var(--white);
+padding:15px;
+border-radius:12px;
+margin-bottom:15px;
+display:flex;
+align-items:center;
+border-left:4px solid var(--blue);
+box-shadow:var(--shadow);
+transition:0.3s;
+}
+
+/* HOVER ANIMATION */
+
+.appointment-item:hover{
+transform:translateY(-4px);
+box-shadow:0 8px 18px rgba(0,0,0,0.12);
+}
+
+/* PATIENT ICON */
+
+.patient-icon{
+width:45px;
+height:45px;
+background:var(--light-blue);
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+color:var(--blue);
+margin-right:12px;
+}
+
+/* DETAILS */
+
+.details{
+flex:1;
+}
+
+.details h4{
+font-size:1rem;
+}
+
+.details p{
+font-size:0.85rem;
+color:#666;
+}
+
+/* STATUS SELECT */
+
+.status-control select{
+padding:6px 10px;
+border-radius:6px;
+border:1px solid #ddd;
+cursor:pointer;
+}
+
+/* BUTTON */
+
+button{
+background:var(--blue);
+color:white;
+border:none;
+padding:8px 14px;
+border-radius:6px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:#1565c0;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+.appointment-item{
+flex-direction:column;
+text-align:center;
+gap:10px;
+}
+
+.navbar{
+flex-direction:column;
+gap:10px;
+}
+
 }
